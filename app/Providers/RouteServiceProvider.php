@@ -24,6 +24,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
+    protected $namespace = 'App\Http\Controllers'; //added this to default to controller namespace
     public function boot()
     {
         $this->configureRateLimiting();
@@ -31,9 +33,11 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware('api')
+                ->namespace($this->namespace) //added this to default to controller namespace
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
+                ->namespace($this->namespace) //added this to default to controller namespace
                 ->group(base_path('routes/web.php'));
         });
     }
